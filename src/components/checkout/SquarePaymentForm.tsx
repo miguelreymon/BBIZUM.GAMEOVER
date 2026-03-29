@@ -423,9 +423,9 @@ export default function SquarePaymentForm({
           ) : isFreeOrder ? (
             'Confirmar Pedido'
           ) : paymentMethod === 'bizum' ? (
-            `Confirmar Pedido (${totalAmount.toFixed(2)}€)`
+            `Confirmar Pedido (${totalAmount.toFixed(0)}€)`
           ) : (
-            `Pagar ${totalAmount.toFixed(2)}€`
+            `Pagar ${totalAmount.toFixed(0)}€`
           )}
         </Button>
       </form>

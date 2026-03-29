@@ -92,7 +92,7 @@ export default function OrderSummary({
             </div>
             <div className="text-right flex flex-col items-end">
                 {item.price > 0 && (
-                    <p className="font-semibold whitespace-nowrap">{(item.price * item.quantity).toFixed(2)}€</p>
+                    <p className="font-semibold whitespace-nowrap">{(item.price * item.quantity).toFixed(0)}€</p>
                 )}
                 {!item.isUpsell && (
                     <Button 
@@ -124,29 +124,29 @@ export default function OrderSummary({
       <div className="space-y-2">
         <div className="flex justify-between">
           <p>Subtotal</p>
-          <p>{subtotal.toFixed(2)}€</p>
+          <p>{subtotal.toFixed(0)}€</p>
         </div>
         <div className="flex justify-between">
           <p>Envío y gestión</p>
-          <p>{shippingFee === 0 ? 'Gratis' : `${shippingFee.toFixed(2)}€`}</p>
+          <p>{shippingFee === 0 ? 'Gratis' : `${shippingFee.toFixed(0)}€`}</p>
         </div>
         {discount > 0 && (
           <div className="flex justify-between text-green-600 font-medium">
             <p>Descuento</p>
-            <p>-{discount.toFixed(2)}€</p>
+            <p>-{discount.toFixed(0)}€</p>
           </div>
         )}
         {bizumDiscount > 0 && (
           <div className="flex justify-between text-green-600 font-medium">
             <p>Descuento Bizum (10%)</p>
-            <p>-{bizumDiscount.toFixed(2)}€</p>
+            <p>-{bizumDiscount.toFixed(0)}€</p>
           </div>
         )}
       </div>
       <Separator />
       <div className="flex justify-between font-bold text-lg">
         <p>Total</p>
-        <p>{total > 0 ? total.toFixed(2) : 0}€</p>
+        <p>{total > 0 ? total.toFixed(0) : 0}€</p>
       </div>
     </div>
   );

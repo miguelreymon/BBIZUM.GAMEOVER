@@ -124,14 +124,14 @@ async function sendCustomerEmail(input: OrderPayload & { orderId: string, paymen
       <tr>
         <td style="padding: 10px; border-bottom: 1px solid #eee;">${item.name} ${item.color ? `(${item.color})` : ''}</td>
         <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: center;">${item.quantity}</td>
-        <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">${item.price.toFixed(2)}€</td>
+        <td style="padding: 10px; border-bottom: 1px solid #eee; text-align: right;">${item.price.toFixed(0)}€</td>
       </tr>
     `).join('');
 
     const bizumInstructions = input.paymentMethod === 'bizum' ? `
       <div style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 20px; border-radius: 10px; margin: 20px 0;">
         <h3 style="color: #1e40af; margin-top: 0;">Instrucciones de Pago Bizum</h3>
-        <p>Has seleccionado el pago vía Bizum. Para que podamos procesar tu pedido, por favor realiza el pago de <strong>${input.total.toFixed(2)}€</strong> al siguiente número:</p>
+        <p>Has seleccionado el pago vía Bizum. Para que podamos procesar tu pedido, por favor realiza el pago de <strong>${input.total.toFixed(0)}€</strong> al siguiente número:</p>
         <div style="text-align: center; font-size: 24px; font-weight: bold; padding: 10px; background: white; border-radius: 5px; margin: 10px 0; border: 1px dashed #3b82f6;">
           680414307
         </div>
@@ -157,7 +157,7 @@ async function sendCustomerEmail(input: OrderPayload & { orderId: string, paymen
           <div style="background: #f9fafb; padding: 15px; border-radius: 8px; margin: 20px 0;">
             <p style="margin: 0;"><strong>Número de Pedido:</strong> #${input.orderId}</p>
             <p style="margin: 5px 0 0 0;"><strong>Método de Pago:</strong> ${paymentMethodText}</p>
-            <p style="margin: 5px 0 0 0;"><strong>Total:</strong> ${input.total.toFixed(2)}€</p>
+            <p style="margin: 5px 0 0 0;"><strong>Total:</strong> ${input.total.toFixed(0)}€</p>
           </div>
 
           ${bizumInstructions}
@@ -217,7 +217,7 @@ async function sendOrderNotification(input: OrderPayload & { orderId: string, pa
                              'Tarjeta';
 
     const itemsHtml = input.cartItems.map(item => `
-      <li>${item.name} (x${item.quantity}) - ${item.price.toFixed(2)}€</li>
+      <li>${item.name} (x${item.quantity}) - ${item.price.toFixed(0)}€</li>
     `).join('');
 
     const { data, error } = await resend.emails.send({
@@ -229,7 +229,7 @@ async function sendOrderNotification(input: OrderPayload & { orderId: string, pa
           <h2 style="color: #2563eb;">Nuevo Pedido Recibido</h2>
           <p><strong>Número de Pedido:</strong> #${input.orderId}</p>
           <p><strong>Método de Pago:</strong> ${paymentMethodName}</p>
-          <p><strong>Total:</strong> ${input.total.toFixed(2)}€</p>
+          <p><strong>Total:</strong> ${input.total.toFixed(0)}€</p>
           
           <hr>
           

@@ -117,53 +117,6 @@ function CountdownTimer({ offer }: { offer: Product['countdownOffer'] }) {
   );
 }
 
-function ShippingTimeline() {
-    const [shippingDate, setShippingDate] = useState('');
-    const [arrivalDate, setArrivalDate] = useState('');
-
-    useEffect(() => {
-        const today = new Date();
-        const arrival = new Date();
-        arrival.setDate(today.getDate() + 2);
-
-        const options: Intl.DateTimeFormatOptions = { day: 'numeric', month: 'short' };
-
-        setShippingDate(today.toLocaleDateString('es-ES', options).replace(' de ', ' ').replace('.', ''));
-        setArrivalDate(arrival.toLocaleDateString('es-ES', options).replace(' de ', ' ').replace('.', ''));
-    }, []);
-
-    const timelineItems = [
-        { icon: ShoppingBag, title: "Compra", subtitle: "Hoy" },
-        { icon: Truck, title: "Envío", subtitle: shippingDate },
-        { icon: Package, title: "Llegada", subtitle: arrivalDate },
-    ];
-
-    if (!shippingDate || !arrivalDate) {
-        return <div className="h-24" />; // Placeholder for server render
-    }
-
-    return (
-        <div className="my-6">
-            <div className="flex justify-between items-center text-center">
-                {timelineItems.map((item, index) => (
-                    <React.Fragment key={item.title}>
-                        <div className="flex flex-col items-center w-20">
-                            <div className="w-12 h-12 bg-secondary rounded-full flex items-center justify-center mb-2">
-                                <item.icon className="w-6 h-6 text-foreground/80" />
-                            </div>
-                            <p className="font-bold text-sm">{item.title}</p>
-                            <p className="text-xs text-muted-foreground">{item.subtitle}</p>
-                        </div>
-                        {index < timelineItems.length - 1 && (
-                            <div className="flex-1 h-px bg-border border-b-2 border-dashed"/>
-                        )}
-                    </React.Fragment>
-                ))}
-            </div>
-        </div>
-    );
-}
-
 function PurchaseBenefits() {
     const benefits = [
         { icon: Gift, text: "<strong class='text-foreground'>Regalos GRATIS</strong>" },
@@ -292,11 +245,11 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
         <div className="flex items-center space-x-3">
           {selectedVariant.originalPrice && (
             <span className="text-xl line-through text-muted-foreground">
-              {selectedVariant.originalPrice.toFixed(2)}€
+              {selectedVariant.originalPrice.toFixed(0)}€
             </span>
           )}
           <span className="text-2xl font-bold text-accent">
-            {selectedVariant.price.toFixed(2)}€
+            {selectedVariant.price.toFixed(0)}€
           </span>
           {selectedVariant.originalPrice && (
             <Badge
@@ -311,7 +264,6 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
       <CountdownTimer offer={product.countdownOffer} />
 
-      
       <PurchaseBenefits />
       
       <div>
@@ -345,7 +297,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                 className="sr-only"
               />
               <span className="font-semibold">{variant.name}</span>
-              <span className="text-sm text-muted-foreground">{variant.price.toFixed(2)}€</span>
+              <span className="text-sm text-muted-foreground">{variant.price.toFixed(0)}€</span>
             </Label>
           ))}
         </RadioGroup>
@@ -396,11 +348,9 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
           onClick={handleBuyNow}
         >
             <span>Comprar ahora</span>
-            <span className="text-xs font-normal normal-case tracking-normal">¡Pide primero, paga en casa!</span>
+            <span className="text-xs font-normal normal-case tracking-normal">Últimas unidades en stock</span>
         </Button>
       </div>
-
-      <ShippingTimeline />
 
       <div className="pt-2">
         <ProductInfoAccordion productInfo={product.productInfoAccordion} />
@@ -446,7 +396,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               </h3>
               <h3 className="font-bold hidden sm:block">{product.name}</h3>
               <p className="text-base sm:text-lg font-bold text-accent">
-                {selectedVariant.price.toFixed(2)}€{' '}
+                {selectedVariant.price.toFixed(0)}€{' '}
                 <span className="text-xs sm:text-sm text-muted-foreground font-normal">
                   ({selectedVariant.name})
                 </span>

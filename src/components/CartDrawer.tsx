@@ -90,7 +90,7 @@ export function CartDrawer() {
                         </Badge>
                       )}
                        <p className="text-sm font-semibold mt-1">
-                        {item.price > 0 ? `${item.price.toFixed(2)}€` : 'Gratis'}
+                        {item.price > 0 ? `${item.price.toFixed(0)}€` : 'Gratis'}
                       </p>
                       {!item.isUpsell && (
                         <div className="flex items-center space-x-2 mt-2">
@@ -137,7 +137,7 @@ export function CartDrawer() {
               <div className="w-full space-y-4">
                 <div className="flex justify-between font-semibold">
                   <span>Subtotal</span>
-                  <span>{subtotal.toFixed(2)}€</span>
+                  <span>{subtotal.toFixed(0)}€</span>
                 </div>
                 <p className="text-xs text-muted-foreground">
                   Impuestos y envío calculados en la pantalla de pago.

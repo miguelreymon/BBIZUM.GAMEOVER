@@ -110,12 +110,12 @@ export default function ThankYouPage() {
                                     Realiza el pago de:
                                 </p>
                                 <div className="flex items-center justify-center gap-2 mb-6">
-                                    <span className="text-2xl font-black">{(orderDetails.total?.toFixed(2) || '---')}€</span>
+                                    <span className="text-2xl font-black">{(orderDetails.total?.toFixed(0) || '---')}€</span>
                                     <Button 
                                         variant="ghost" 
                                         size="icon" 
                                         className="h-8 w-8" 
-                                        onClick={() => copyToClipboard(orderDetails.total?.toFixed(2) || '', 'total')}
+                                        onClick={() => copyToClipboard(orderDetails.total?.toFixed(0) || '', 'total')}
                                     >
                                         {copiedField === 'total' ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
                                     </Button>
@@ -165,7 +165,7 @@ export default function ThankYouPage() {
                                         asChild
                                     >
                                         <a 
-                                            href={`https://wa.me/34680414307?text=${encodeURIComponent(`Hola, acabo de realizar el pedido #${orderId} por ${orderDetails.total?.toFixed(2)}€ vía Bizum. Aquí tienes el comprobante.`)}`}
+                                            href={`https://wa.me/34680414307?text=${encodeURIComponent(`Hola, acabo de realizar el pedido #${orderId} por ${orderDetails.total?.toFixed(0)}€ vía Bizum. Aquí tienes el comprobante.`)}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                         >
